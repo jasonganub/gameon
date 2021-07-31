@@ -8,6 +8,7 @@ const getAllPokemon = baseURL + '/pokemon?limit=151'
 
 function App() {
   const [pokemonList, setPokemonList] = React.useState(null);
+  let pokemonWithDetails = [];
 
   React.useEffect(() => {
     axios.get(getAllPokemon).then((response) => {
@@ -17,11 +18,20 @@ function App() {
 
   if (!pokemonList) return null;
 
-  const pokemonItems = pokemonList.map((pokemon) => 
+  pokemonList.map((pokemon) => 
+    axios.get(pokemon.url).then((response) => {
+      pokemonWithDetails.push(response.data.name)
+    })
+  )
+
+  if (!pokemonWithDetails) return null;
+
+  console.log(pokemonWithDetails)
+
+  const pokemonItems = pokemonWithDetails.map((pokemon) => 
         <li>
           {pokemon.name}
           <br></br>
-          {pokemon.url}
         </li>
   )
 
