@@ -1,7 +1,30 @@
 import React, { useEffect, useState } from 'react';
+import { Box, Image } from "@chakra-ui/react"
 
 const baseURL = 'https://pokeapi.co/api/v2'
 const getAllPokemon = baseURL + '/pokemon?limit=500'
+
+function Pokemon(pokemon) {
+    return (
+        <Box maxW="sm" borderWidth="1px" borderRadius="lg" overlfow="hidden">
+            <Image alt="pokemon" src={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`} width="200px" height="200px" />
+
+            <Box p="6">
+                <Box d="flex" alignItems="baseline">
+                    <Box
+                        mt="1"
+                        fontWeight="semibold"
+                        as="h4"
+                        lineHeight="tight"
+                        isTruncated
+                    >
+                        {pokemon.name}
+                    </Box>
+                </Box>
+            </Box>
+        </Box>
+    )
+}
 
 function PokemonItems() {
     const [pokemonList, setPokemonList] = useState(null);
@@ -18,10 +41,7 @@ function PokemonItems() {
     if (!pokemonList) return null;
 
     const pokemonItems = pokemonList.map((pokemon) =>
-        <li key={pokemon.name}>
-            <img alt="pokemon" src={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`} width="200px" height="200px"></img>
-            {pokemon.name}
-        </li>
+        Pokemon(pokemon)
     )
 
     return pokemonItems

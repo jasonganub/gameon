@@ -7,8 +7,7 @@ function App() {
     <ChakraProvider>
       <Box bg="tomato" w="100%" p={4} color="white">
         Pokedex
-        {/* <h1>Pokedex</h1> */}
-        {/* <ul>{PokemonItems()}</ul> */}
+        {PokemonItems()}
       </Box>
     </ChakraProvider>
   );
