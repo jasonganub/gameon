@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Image } from "@chakra-ui/react"
 
-const baseURL = 'https://pokeapi.co/api/v2'
-const getAllPokemon = baseURL + '/pokemon?limit=500'
+const baseURL = 'https://pokeapi.co/api/v2/pokemon'
+const getAllPokemon = baseURL + '?limit=500'
 
 function Pokemon(pokemon) {
+    console.log(pokemon)
+
     return (
-        <Box bg="white" maxW="sm" borderWidth="1px" borderRadius="lg" overlfow="hidden">
+        <Box w="100%">
             <Image alt="pokemon" src={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`} width="200px" height="200px" />
 
             <Box p="6">
@@ -17,6 +19,7 @@ function Pokemon(pokemon) {
                         as="h4"
                         lineHeight="tight"
                         isTruncated
+                        color="black"
                     >
                         {pokemon.name}
                     </Box>
@@ -24,6 +27,15 @@ function Pokemon(pokemon) {
             </Box>
         </Box>
     )
+}
+
+function GetPokemon(name) {
+    return new Promise((resolve, reject) => {
+        fetch(`${baseURL}/${name}`)
+            .then((res) => {
+              resolve(res.json())  
+            })
+    })
 }
 
 function PokemonItems() {
@@ -34,17 +46,28 @@ function PokemonItems() {
         fetch(getAllPokemon)
             .then((res) => res.json())
             .then((data) => {
-                setPokemonList(data.results);
+                setPokemonList(data.results.map(pokemon => {
+                    return pokemon.name
+                }));
             })
     }, [])
 
     if (!pokemonList) return null;
 
-    const pokemonItems = pokemonList.map((pokemon) =>
-        Pokemon(pokemon)
+    let pokemonRequests = []
+    pokemonList.forEach(
+        (name) => {
+            pokemonRequests.push(GetPokemon(name))
+        }
     )
 
-    return pokemonItems
+    Promise.all(pokemonRequests).then((allPokemonData) => {
+        allPokemonData.forEach(
+            (pokemon) => {
+                return Pokemon(pokemon)
+            }
+        )
+    })
 }
 
 export default PokemonItems;
