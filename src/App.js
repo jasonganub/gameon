@@ -1,19 +1,18 @@
 import './App.css';
-import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ChakraProvider } from "@chakra-ui/react"
 
 const baseURL = 'https://pokeapi.co/api/v2'
 const getAllPokemon = baseURL + '/pokemon?limit=500'
 
 function App() {
-  const [pokemonList, setPokemonList] = React.useState(null);
+  const [pokemonList, setPokemonList] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(getAllPokemon)
-      .then((res) => {
-        setPokemonList(res.data.results);
+    fetch(getAllPokemon)
+      .then((res) => res.json())
+      .then((data) => {
+        setPokemonList(data.results);
       })
   })
 
@@ -22,7 +21,6 @@ function App() {
   const pokemonItems = pokemonList.map((pokemon) =>
     <li key={pokemon.name}>
       <img alt="pokemon" src={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`} width="200px" height="200px"></img>
-      <br></br>
       {pokemon.name}
     </li>
   )
