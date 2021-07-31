@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import Pokemon from './utils/pokemon'
 
 const baseURL = 'https://pokeapi.co/api/v2'
-const getAllPokemon = baseURL + '/pokemon?limit=151'
+const getAllPokemon = baseURL + '/pokemon?limit=500'
 
 function App() {
   const [pokemonList, setPokemonList] = React.useState(null);
