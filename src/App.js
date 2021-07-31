@@ -1,7 +1,6 @@
 import './App.css';
 import axios from 'axios';
 import React, { useEffect } from 'react';
-import Pokemon from './utils/pokemon'
 
 const baseURL = 'https://pokeapi.co/api/v2'
 const getAllPokemon = baseURL + '/pokemon?limit=500'
