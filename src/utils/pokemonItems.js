@@ -6,7 +6,7 @@ const getAllPokemon = baseURL + '/pokemon?limit=500'
 
 function Pokemon(pokemon) {
     return (
-        <Box maxW="sm" borderWidth="1px" borderRadius="lg" overlfow="hidden">
+        <Box bg="white" maxW="sm" borderWidth="1px" borderRadius="lg" overlfow="hidden">
             <Image alt="pokemon" src={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`} width="200px" height="200px" />
 
             <Box p="6">
