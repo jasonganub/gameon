@@ -1,6 +1,7 @@
 import './App.css';
 import axios from 'axios';
 import React, { useEffect } from 'react';
+import { ChakraProvider } from "@chakra-ui/react"
 
 const baseURL = 'https://pokeapi.co/api/v2'
 const getAllPokemon = baseURL + '/pokemon?limit=500'
@@ -20,8 +21,9 @@ function App() {
   
   const pokemonItems = pokemonList.map((pokemon) =>
     <li key={pokemon.name}>
-      {pokemon.name}
+      <img alt="pokemon" src={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`} width="200px" height="200px"></img>
       <br></br>
+      {pokemon.name}
     </li>
   )
 
