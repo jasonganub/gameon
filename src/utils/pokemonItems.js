@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Pokemon from "./pokemon"
 
 const baseURL = 'https://pokeapi.co/api/v2/pokemon'
-const getAllPokemon = baseURL + '?limit=10'
+const getAllPokemon = baseURL + '?limit=151'
 
 function GetPokemon(name) {
     return new Promise((resolve, reject) => {
