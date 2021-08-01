@@ -1,31 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Image } from "@chakra-ui/react"
+import { useEffect, useState } from 'react';
+import Pokemon from "./pokemon"
 
 const baseURL = 'https://pokeapi.co/api/v2/pokemon'
 const getAllPokemon = baseURL + '?limit=5'
-
-function Pokemon(pokemon) {
-    return (
-        <Box w="100%">
-            <Image alt="pokemon" src={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`} width="200px" height="200px" />
-
-            <Box p="6">
-                <Box d="flex" alignItems="baseline">
-                    <Box
-                        mt="1"
-                        fontWeight="semibold"
-                        as="h4"
-                        lineHeight="tight"
-                        isTruncated
-                        color="black"
-                    >
-                        {pokemon.name}
-                    </Box>
-                </Box>
-            </Box>
-        </Box>
-    )
-}
 
 function GetPokemon(name) {
     return new Promise((resolve, reject) => {
@@ -37,36 +14,36 @@ function GetPokemon(name) {
 }
 
 function PokemonItems() {
-    const [pokemonNames, setPokemonNames] = useState(null);
-    const [pokemonData, setPokemonData] = useState(null);
+    const [names, setNames] = useState([]);
+    const [data, setData] = useState([]);
 
     // useEffect runs after the initial render which causes re-render infinite loop
     useEffect(() => {
         fetch(getAllPokemon)
             .then((res) => res.json())
             .then((data) => {
-                setPokemonNames(data.results.map(pokemon => {
+                setNames(data.results.map(pokemon => {
                     return pokemon.name
                 }));
             })
     }, [])
-
-    if (!pokemonNames) return null;
-
-    let pokemonRequests = []
-    pokemonNames.forEach(
-        (name) => {
-            pokemonRequests.push(GetPokemon(name))
-        }
-    )
     
-    Promise.all(pokemonRequests).then((allPokemonData) => {
-        setPokemonData(allPokemonData.map(pokemon => {
-            return Pokemon(pokemon)
-        }))
-    })
+    useEffect(() => {
+        let pokemonRequests = []
+        names.forEach(
+            (name) => {
+                pokemonRequests.push(GetPokemon(name))
+            }
+        )
 
-    return pokemonData
+        Promise.all(pokemonRequests).then((allPokemonData) => {
+            setData(allPokemonData.map(pokemon => {
+                return Pokemon(pokemon)
+            }))
+        })
+    }, [names])
+
+    return data
 }
 
 export default PokemonItems;
