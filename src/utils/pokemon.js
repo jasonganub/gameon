@@ -2,7 +2,7 @@ import { Box, Image, Badge } from "@chakra-ui/react"
 
 function Pokemon(pokemon) {
     return (
-        <Box w="100%">
+        <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" mb="2">
             <Image alt="pokemon" src={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`} width="200px" height="200px" />
 
             <Box p="6">
@@ -14,8 +14,9 @@ function Pokemon(pokemon) {
                             </Badge>
                         )
                     })}
+                </Box>
 
-                    <Box
+                <Box
                         mt="1"
                         fontWeight="semibold"
                         as="h4"
@@ -25,7 +26,6 @@ function Pokemon(pokemon) {
                     >
                         {pokemon.name}
                     </Box>
-                </Box>
             </Box>
         </Box>
     )
