@@ -14,18 +14,29 @@ function Pokemon(pokemon) {
                             </Badge>
                         )
                     })}
+
+                    <Box
+                        color="gray.500"
+                        fontWeight="semibold"
+                        letterSpacing="wide"
+                        fontSize="xs"
+                        textTransform="uppercase"
+                        ml="2"
+                    >
+                        {pokemon.height * 10} cm &bull; {pokemon.weight / 10} kg
+                    </Box>
                 </Box>
 
                 <Box
-                        mt="1"
-                        fontWeight="semibold"
-                        as="h4"
-                        lineHeight="tight"
-                        isTruncated
-                        color="black"
-                    >
-                        {pokemon.name}
-                    </Box>
+                    mt="1"
+                    fontWeight="semibold"
+                    as="h4"
+                    lineHeight="tight"
+                    isTruncated
+                    color="black"
+                >
+                    {pokemon.name}
+                </Box>
             </Box>
         </Box>
     )
