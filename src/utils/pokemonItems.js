@@ -37,8 +37,8 @@ function GetPokemon(name) {
 }
 
 function PokemonItems() {
-    const [pokemonNames, setPokemonNames] = useState(null);
-    const [pokemonData, setPokemonData] = useState(null);
+    const [pokemonNames, setPokemonNames] = useState([]);
+    const [pokemonData, setPokemonData] = useState([]);
 
     // useEffect runs after the initial render which causes re-render infinite loop
     useEffect(() => {
@@ -50,21 +50,21 @@ function PokemonItems() {
                 }));
             })
     }, [])
-
-    if (!pokemonNames) return null;
-
-    let pokemonRequests = []
-    pokemonNames.forEach(
-        (name) => {
-            pokemonRequests.push(GetPokemon(name))
-        }
-    )
     
-    Promise.all(pokemonRequests).then((allPokemonData) => {
-        setPokemonData(allPokemonData.map(pokemon => {
-            return Pokemon(pokemon)
-        }))
-    })
+    useEffect(() => {
+        let pokemonRequests = []
+        pokemonNames.forEach(
+            (name) => {
+                pokemonRequests.push(GetPokemon(name))
+            }
+        )
+
+        Promise.all(pokemonRequests).then((allPokemonData) => {
+            setPokemonData(allPokemonData.map(pokemon => {
+                return Pokemon(pokemon)
+            }))
+        })
+    }, [pokemonNames])
 
     return pokemonData
 }
