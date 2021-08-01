@@ -1,4 +1,5 @@
 import { Box, Image, Badge } from "@chakra-ui/react"
+import Colors from "./types"
 
 function Pokemon(pokemon) {
     return (
@@ -8,9 +9,11 @@ function Pokemon(pokemon) {
             <Box p="6">
                 <Box d="flex" alignItems="baseline">
                     {pokemon.types.map((value, _) => {
+                        const type = value.type.name
+                        const color = Colors[type]
                         return (
-                            <Badge borderRadius="full" px="2" colorScheme="teal" mr="1">
-                                {value.type.name}
+                            <Badge borderRadius="full" px="2" backgroundColor={color} color="white" mr="1">
+                                {type}
                             </Badge>
                         )
                     })}
