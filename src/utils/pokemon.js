@@ -4,7 +4,7 @@ import Colors from "./types"
 function Pokemon(pokemon) {
     return (
         <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" mb="2">
-            <Image alt="pokemon" src={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`} width="200px" height="200px" />
+            <Image pt="6" pl="6" alt="pokemon" src={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`} width="200px" height="200px" />
 
             <Box p="6">
                 <Box d="flex" alignItems="baseline">
