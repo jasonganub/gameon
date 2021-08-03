@@ -4,10 +4,10 @@ import Colors from "./types"
 function Pokemon(pokemon) {
     return (
         <a href={`https://www.pokemon.com/us/pokedex/${pokemon.name}`}>
-            <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" mb="2">
-                <Image pt="6" pl="6" alt="pokemon" src={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`} width="200px" height="200px" />
+            <Box maxW="sm" maxH="sm" h="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" mb="2">
+                <Image p="6" boxSize="250px" maxW="sm" maxH="sm" objectFit="contain" alt={pokemon.name} src={`https://img.pokemondb.net/artwork/large/${pokemon.name}.jpg`}/>
 
-                <Box p="6">
+                <Box pb="6" pl="6" pr="6" pt="0">
                     <Box d="flex" alignItems="baseline">
                         {pokemon.types.map((value, _) => {
                             const type = value.type.name
