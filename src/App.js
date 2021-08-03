@@ -44,7 +44,6 @@ function App() {
     })
   }, [names])
 
-  const pokemon = PokemonItems(data)
   let types = []
   data.forEach((pokemon) => {
     pokemon.types.forEach((type) => {
@@ -52,7 +51,8 @@ function App() {
     })
   })
   types = [...new Set(types)].sort()
-  console.log(types)
+  
+  const pokemon = PokemonItems(data)
 
   return (
     <ChakraProvider>
