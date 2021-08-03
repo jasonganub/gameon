@@ -1,18 +1,19 @@
 import './App.css';
 import PokemonItems from "./utils/pokemonItems"
-import { ChakraProvider, Box, Image, Center, SimpleGrid } from "@chakra-ui/react"
+import Colors from './utils/types'
+import { ChakraProvider, Box, Image, Center, SimpleGrid, Badge } from "@chakra-ui/react"
 import { useEffect, useState } from 'react';
 
 const baseURL = 'https://pokeapi.co/api/v2/pokemon'
 const getAllPokemon = baseURL + '?limit=151'
 
 function GetPokemon(name) {
-    return new Promise((resolve, reject) => {
-        fetch(`${baseURL}/${name}`)
-            .then((res) => {
-                resolve(res.json())
-            })
-    })
+  return new Promise((resolve, reject) => {
+    fetch(`${baseURL}/${name}`)
+      .then((res) => {
+        resolve(res.json())
+      })
+  })
 }
 
 function App() {
@@ -50,7 +51,7 @@ function App() {
       types.push(type.type.name)
     })
   })
-  types = [...new Set(types)]
+  types = [...new Set(types)].sort()
   console.log(types)
 
   return (
@@ -59,6 +60,12 @@ function App() {
         <Center>
           <Image pb="5" align="center" src="https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png" />
         </Center>
+        <Box pb="6">
+          {types.map((type, _) => {
+            const color = Colors[type]
+            return <Badge borderRadius="full" px="2" backgroundColor={color} color="white" mr="1">{type}</Badge>
+          })}
+        </Box>
 
         <SimpleGrid minChildWidth="240px" spacing="20px">
           {pokemon}
